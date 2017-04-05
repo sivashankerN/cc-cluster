@@ -1,0 +1,8 @@
+---
+  - name: Create cluster containers/server nodes
+    hosts: all
+    remote_user: root
+
+    roles:
+      - cluster
+#      - router

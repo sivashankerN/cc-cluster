@@ -1,0 +1,9 @@
+---
+ 
+ proxy_env:
+#    http_proxy: http://proxy.iiit.ac.in:8080
+#    https_proxy: http://proxy.iiit.ac.in:8080
+    http_proxy: ""
+    https_proxy: "" 
+ ovpl_dest: ovpl
+

@@ -1,0 +1,10 @@
+DEVICE=br0
+BOOTPROTO=dhcp
+ONBOOT=yes
+TYPE=Bridge
+NM_CONTROLLED=no
+#IPADDR=<ip>
+#NETMASK=255.255.252.0
+#GATEWAY=<ip>
+#DNS1=<ip>
+#DNS2=<ip>

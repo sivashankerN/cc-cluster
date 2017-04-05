@@ -1,0 +1,58 @@
+    - name: ping
+      ping:
+    - name: Install dependencies
+      yum: name=libselinux-python state=present
+      environment: "{{proxy_env}}"
+    - name: Install bridge-utils
+      yum: name="bridge-utils" state=present
+      environment: "{{proxy_env}}"
+    - name: Configure ifcfg-br0
+      template: src=ifcfg-br0 dest=/etc/sysconfig/network-scripts/
+    - name: Configure ifcfg-eth1
+      template: src=ifcfg-eth1 dest=/etc/sysconfig/network-scripts/
+    - name: Configure ifcfg-br1
+      template: src=ifcfg-br1 dest=/etc/sysconfig/network-scripts/
+    - name: Network restart
+      service: name=network state=restarted enabled=yes
+    - name: Install chkconfig
+      yum: name=chkconfig state=present
+    #- name: Disable NetworkManager
+    #  shell: chkconfig NetworkManager off
+   
+  #  - name: Base machines br0 IP
+  #    shell: sudo ifconfig br0
+
+ #####   - name: install git
+ ####     yum : name=git state=present
+ ####     environment: "{{proxy_env}}"
+ #### 
+ ####   - name: Check setup-ovpl-centos.git exist or not
+ ####     stat: path="{{ovpl_dest}}"
+ ####     register: ovpl
+
+
+ ####   - name: Clone ADS repo
+ ####     git: repo=https://github.com/vlead/setup-ovpl-centos.git dest="{{ovpl_dest}}"
+ ####     environment: "{{proxy_env}}"
+ ####     when: ovpl.stat.exists == False
+
+ ####   - lineinfile: 
+ ####       dest: ovpl/scripts/centos_prepare_ovpl.sh 
+ ####       regexp: '^./install_mongodb.sh' 
+ ####       line: "#./install_mongodb.sh"    
+ #### #  - lineinfile: 
+ #### #      dest: ovpl/scripts/centos_prepare_ovpl.sh 
+ #### #      regexp: '^yum update.*' 
+ #### #      line: "#yum update -y "    
+ #####   - lineinfile: 
+ #####       dest: ovpl/scripts/centos_prepare_ovpl.sh 
+ #####       regexp: '^#source.*' 
+ #####       line: "source ./config.sh"   
+ ####   - name: Run the script from ovpl repo
+ ####     shell: 'sh centos_prepare_ovpl.sh' 
+ ####     #environment: "{{proxy_env}}"
+ ####     args:
+ ####      chdir: ovpl/scripts
+
+ ####       
+

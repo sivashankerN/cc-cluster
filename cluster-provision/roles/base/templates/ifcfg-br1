@@ -1,0 +1,5 @@
+DEVICE=br1
+TYPE=Bridge
+ONBOOT=yes
+NM_CONTROLLED=no
+BOOTPROTO=none

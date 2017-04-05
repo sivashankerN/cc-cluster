@@ -1,0 +1,25 @@
+ 
+    - name: change /etc/vz/vznet.conf
+      shell: echo 'EXTERNAL_SCRIPT="/usr/sbin/vznetaddbr"' > /etc/vz/vznet.conf
+    - name: Replace
+      replace: dest=/etc/vz/conf/ve-vswap-256m.conf-sample regexp='NETFILTER=.*' replace='NETFILTER="full"'
+    - name: change /etc/sysctl.conf
+      replace: dest=/etc/sysctl.conf regexp="net.ipv4.ip_forward = 1" replace="net.ipv4.ip_forward = 1"
+
+    - name: Check CentOS template exist or not
+      stat: path=/vz/template/cache/centos-6-x86_64.tar.gz
+      register: centos
+
+    - name: get the CentOS template
+      shell: wget http://download.openvz.org/template/precreated/centos-6-x86_64.tar.gz -P /vz/template/cache/
+      environment: "{{proxy_env}}"
+      when: centos.stat.exists == False
+
+
+    - name: Copy cluster.sh 
+      copy: src=cluster.sh dest=~/ 
+    - name: run the script cluster.sh
+      command: sh cluster.sh
+      args:
+       chdir: ~/
+
